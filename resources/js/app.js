@@ -10,10 +10,11 @@ require('./bootstrap');
 import { createApp } from 'vue';
 import * as VueRouter from 'vue-router';
 
-import ExampleComponent from './components/ExampleComponent.vue';
+import ProductLists from './components/ProductLists.vue';
+import Layout from './components/Layout.vue';
 
 const routes = [
-    {path: '/', component: ExampleComponent},
+    {path: '/', component: ProductLists},
 ]
 
 const router = VueRouter.createRouter({
@@ -25,6 +26,7 @@ const app = createApp({});
 
 app.use(router);
 
-app.component('example-component', ExampleComponent);
+app.component('layout', Layout);
+app.component('product-lists', ProductLists);
 
 app.mount("#app");
