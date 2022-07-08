@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\CollectionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +18,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('product-lists.index');
-});
+Route::any('/{any?}', [HomeController::class, 'index'])->where(['any' => '^(?!api).*$']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::post('login', [LoginController::class, 'authenticate']);
 
-require __DIR__.'/auth.php';
+// Auth::routes();
+
+// Route::any('/', [HomeController::class, 'index']);
+
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+
+// require __DIR__.'/auth.php';

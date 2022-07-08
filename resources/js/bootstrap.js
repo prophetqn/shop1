@@ -1,3 +1,5 @@
+import NProgress from 'nprogress'
+
 window._ = require('lodash');
 
 /**
@@ -8,21 +10,21 @@ window._ = require('lodash');
 
 window.axios = require('axios');
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
+axios.defaults.withCredentials = true;
 
-// import Echo from 'laravel-echo';
-
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     forceTLS: true
-// });
+axios.interceptors.request.use(function (config) {
+    NProgress.start();
+    return config;
+}, function (error) {
+    return Promise.reject(error);
+});
+  
+axios.interceptors.response.use(function (response) {
+    NProgress.done();
+    return response;
+}, function (error) {
+    NProgress.done();
+    return Promise.reject(error);
+});

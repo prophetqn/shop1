@@ -1,32 +1,8 @@
-require('./bootstrap');
+import './bootstrap'
+import { createApp } from 'vue'
+import router from './router'
+import store from './store'
 
-// import Alpine from 'alpinejs';
+import Layout from './components/layout/Layout.vue'
 
-// window.Alpine = Alpine;
-
-// Alpine.start();
-
-
-import { createApp } from 'vue';
-import * as VueRouter from 'vue-router';
-
-import ProductLists from './components/ProductLists.vue';
-import Layout from './components/Layout.vue';
-
-const routes = [
-    {path: '/', component: ProductLists},
-]
-
-const router = VueRouter.createRouter({
-    history: VueRouter.createWebHistory(),
-    routes,
-})
-
-const app = createApp({});
-
-app.use(router);
-
-app.component('layout', Layout);
-app.component('product-lists', ProductLists);
-
-app.mount("#app");
+const app = createApp({}).component('layout', Layout).use(router).use(store).mount("#app");
